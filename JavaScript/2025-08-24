@@ -1,0 +1,46 @@
+# Date: 2025-08-24
+
+## Topic: For...of loop
+
+- Iterates over values of an iterable (arrays, strings, maps, sets, etc.).
+- Cleaner way to loop through actual data items.
+
+Example:
+``` js 
+const nums = [10, 20, 37, 12, 202];
+
+for(let i of nums){
+    console.log(i);
+    i++;
+    console.log(`After increment: ${i}`);
+}
+```
+
+Here i is not the index but the copy of the current element. We say copy because if we make any changes to i, it won't modify the actual content in the array.
+
+Lets say an array contains objects instead of numbers
+
+``` js 
+let people = [{name: "A", age: 23}, {name: "B", age: 43}];
+
+for (let person of people) {
+  person.name = "Bond"; // modifies the object itself
+}
+
+console.log(people);
+// [ { name: "Changed" }, { name: "Changed" } ]
+```
+Here 'person' is the for...of variable. However, changing it actually changes the object. But why?
+
+For that we have to understand this:
+
+Firstly there are two kinds of data in JavaScript:
+1. Primitive types (basic values) → numbers, strings, booleans, null, undefined, symbol, bigint.
+These are copied by value.
+
+2. Reference types → objects, arrays, functions.
+These are copied by reference (a pointer to the same memory).
+
+- So basically, if the array has primitives, it gets the copy of the value, and changing it doesn't really change the actual value cuz its a copy of it. But in case its objects, we get a copy of the reference, which still points to the actual value so when we update it, the actual value gets updated cuz copy of reference or reference points to the same value
+
+**Understand the above, very easy**

@@ -120,3 +120,34 @@ WHERE (dept NOT IN ('HR', 'Finance')) OR dept IS NULL;
 ```
 
 Or better, use **`IS NULL` / `IS NOT NULL`** when you really care about missing values.
+
+### Sorting and Limiting Results
+#### 1. ORDER BY
+- Arranges the result of the rows either in ascending or descending order. By default, its ascending. We can do multiple columns as well
+Eg:
+``` sql
+SELECT name, dept, salary 
+FROM employees
+ORDER BY dept ASC, salary DESC;
+```
+- First sorts by department alphabetically, then within each department sorts salaries high → low.
+
+#### 2. OFFSET
+- Skips the first n rows, then returns the rest (with LIMIT if given).
+- Useful for pagination.
+
+#### 3. LIIMT
+- Returns only the first n rows after sorting.
+
+Eg: 
+``` sql
+SELECT name, salary
+FROM employees
+ORDER BY salary DESC
+LIMIT 5 OFFSET 5;
+```
+- Gets employees ranked 6th–10th by salary.
+
+**Execution flow goes like this:** FROM → WHERE → SELECT → ORDER BY → OFFSET -> LIMIT
+
+**Key Takeaway**: LIMIT without ORDER BY = unreliable results. Always use LIMIT/OFFSET with ORDER BY
